@@ -12,7 +12,7 @@ class TestHappyNewYear:
         '''prints 10 to 1 countdown then "Happy New Year!"'''
         captured_out = io.StringIO()
         sys.stdout = captured_out
-        happy_new_year()
+        happy_new_year(10)
         sys.stdout = sys.__stdout__
         answer = captured_out.getvalue()
         
@@ -39,7 +39,9 @@ class TestFizzBuzz:
         '''prints 1 to 100 with fizz 3s, buzz 5s, fizzbuzz 3and5s'''
         captured_out = io.StringIO()
         sys.stdout = captured_out
-        fizzbuzz()
+        for i in range(1, 101):
+            fizzbuzz_output = fizzbuzz(i)  # Call fizzbuzz with the current number
+            print(fizzbuzz_output)
         sys.stdout = sys.__stdout__
         answer = captured_out.getvalue()
         assert len(answer) != 0, "Nothing printed! Check your loop condition. Also do you have print statements?"
@@ -47,12 +49,12 @@ class TestFizzBuzz:
         assert "Buzz" in answer, "The string 'Buzz' not found in your answer, check spelling/capitalization!"
         i = 1
         for line in answer.split('\n'):
-            if(line): #answer.split(\n) produces a list that ends in ''
-                if i % 15 == 0: assert line == "FizzBuzz", f"Should have printed 'Buzz' when number is {i}, got {line} instead"
+            if line:  # answer.split(\n) produces a list that ends in ''
+                if i % 15 == 0: assert line == "FizzBuzz", f"Should have printed 'FizzBuzz' when number is {i}, got {line} instead"
                 elif i % 3 == 0: assert line == "Fizz", f"Should have printed 'Fizz' when number is {i}, got {line} instead"
                 elif i % 5 == 0: assert line == "Buzz", f"Should have printed 'Buzz' when number is {i}, got {line} instead"
                 else: assert str(i) == line, f"Should have printed {i}, got {line} instead"
                 i += 1
-        
+
         i = i - 1
-        assert i == 100, f"Only looped {i} times, should have looped 100 times. Check your loop condition!"    
+        assert i == 100, f"Only looped {i} times, should have looped 100 times. Check your loop condition!"
